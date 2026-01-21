@@ -1,0 +1,183 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-div {
+    flex: 1;
+}
+
+/* Navbar */
+.navbar {
+    height: 5rem;
+    background-color: white;
+}
+
+.navbar-brand {
+    font-size: 2rem !important;
+    color: rgb(223, 0, 0) !important;
+    font-weight: 700;
+}
+
+.nav-link {
+    color: #222222 !important;
+    font-weight: 500 !important;
+}
+
+#search-bar {
+    width: 400px;
+    padding: 0 1rem;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.127);
+}
+
+#search-country {
+    width: 100px;
+}
+
+/* Footer */
+
+.f-info {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #22222223;
+}
+
+.f-info-socials {
+    font-size: 1.5rem;
+}
+
+.f-info-links a {
+    text-decoration: none;
+    color: #222222;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+}
+
+/* cards */
+.card-par {
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    border: none !important;
+    padding: 0 !important;
+    text-decoration: none;
+}
+
+.card-img-overlay {
+    opacity: 0;
+    background-color: rgb(235, 235, 235);
+}
+
+.card-img-overlay:hover {
+    opacity: 0.2;
+}
+
+/* Landing Page */
+.landing-page {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filters {
+    display: flex;
+    gap: 2rem;
+    overflow: hidden;
+}
+
+.filters a {
+    text-decoration: none;
+    color: black;
+}
+
+.filters a div {
+    text-decoration: none;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    opacity: .7;
+}
+
+.filters a div:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.filters a div i {
+    font-size: 1.2rem;
+}
+
+.filters a div p {
+    margin: 0;
+}
+
+.tax-switch {
+    font-weight: bold;
+    padding: .5rem 1rem;
+    display: flex;
+    align-items: center;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.127);
+}
+
+.review {
+    max-height: 50vh;
+    overflow-y: scroll;
+}
+
+/* GST */
+.gstTag {
+    visibility: hidden;
+}
+
+.gstPrice {
+    display: none;
+}
+
+#Category {
+    width: 100%;
+    height: 2.3rem;
+}
+
+/* User Profile */
+#user-profile {
+    text-decoration: none;
+    color: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#user-profile img {
+    height: 50px;
+    width: 50px;
+    padding: 1px;
+    border: 2px solid black;
+    border-radius: 50%;
+}
+
+#user-profile div p:first-child {
+    margin: 0;
+    color: black;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+#user-profile div p:last-child {
+    margin: 0;
+    color: black;
+}

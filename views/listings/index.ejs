@@ -1,0 +1,113 @@
+<%- layout("/layouts/boilerplate.ejs") %>
+
+    <body>
+        <div class="container mb-3 landing-page ">
+
+            <div class="filters">
+                <a href="/listings">
+                    <div>
+                        <i class="fa-solid fa-list"></i>
+                        <p>All</p>
+                    </div>
+                </a>
+                <a href="/listings/filter?category=trending">
+                    <div>
+                        <i class="fa-solid fa-fire"></i>
+                        <p>Trending</p>
+                    </div>
+                </a>
+                <a href="/listings/filter?category=home">
+                    <div>
+                        <i class="fa-solid fa-bed"></i>
+                        <p>Home</p>
+                    </div>
+                </a>
+                <a href="/listings/filter?category=mountain">
+                    <div>
+                        <i class="fa-solid fa-mountain-city"></i>
+                        <p>Mountain-City</p>
+                    </div>
+                </a>
+                <a href="/listings/filter?category=castle">
+                    <div>
+                        <i class="fa-brands fa-fort-awesome"></i>
+                        <p>Castle</p>
+                    </div>
+                </a>
+                <a href="/listings/filter?category=pool">
+                    <div>
+                        <i class="fa-solid fa-person-swimming"></i>
+                        <p>Pools</p>
+                    </div>
+                </a>
+                <a href="/listings/filter?category=farm">
+                    <div>
+                        <i class="fa-solid fa-cow"></i>
+                        <p>Farming</p>
+                    </div>
+                </a>
+                <a href="/listings/filter?category=arctic">
+                    <div>
+                        <i class="fa-solid fa-snowflake"></i>
+                        <p>Arctic</p>
+                    </div>
+                </a>
+                <a href="/listings/filter?category=island">
+                    <div>
+                        <i class="fa-solid fa-sailboat"></i>
+                        <p>Islands</p>
+                    </div>
+                </a>
+                <a href="/listings/filter?category=cafe">
+                    <div>
+                        <i class="fa-solid fa-bell-concierge"></i>
+                        <p>Cafes</p>
+                    </div>
+                </a>
+                <a href="/listings/filter?category=canteen">
+                    <div>
+                        <i class="fa-solid fa-tent"></i>
+                        <p>Camp</p>
+                    </div>
+                </a>
+                <a href="/listings/filter?category=beach">
+                    <div>
+                        <i class="fa-solid fa-umbrella-beach"></i>
+                        <p>Beach</p>
+                    </div>
+                </a>
+
+            </div>
+            <div class="tax-switch border rounded-5">
+                <div class=" form-check form-switch form-check-reverse ">
+                    <label class="form-check-label" for="checkNativeSwitch">Display Total Before Taxes</label>
+                    <input class="form-check-input" type="checkbox" value="" id="checkNativeSwitch">
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid row card-par">
+            <% for(let listing of allListings){ %>
+                <a href="/listings/<%= listing.id %>" class="card p-2 m-2" style="width: 20rem;">
+                    <img src="<%= listing.image.url %>" class="card-img-top border rounded-4" style="height: 15rem;"
+                        alt="listing-image">
+                    <div class="card-img-overlay"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= listing.title %>
+                        </h5>
+                        <p class="card-text mb-2 ">
+                            <%= listing.description %>
+                        </p>
+                        <p class="card-text mb-2 fw-bold">
+                            <%= listing.price ? listing.price.toLocaleString("en-IN" ,{style : "currency" , currency
+                                : "INR" }) : "----" %> <i class="gstTag"> + 18% GST</i>
+                        </p>
+                        <h5 class="fw-bold gstPrice">Grand Total : <%= listing.price?
+                                listing.price.toLocaleString("en-IN" ,{style : "currency" , currency : "INR" }) : "----"
+                                %> /Day
+                        </h5>
+                    </div>
+                </a>
+                <% } %>
+        </div>
+    </body>

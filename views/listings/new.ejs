@@ -1,0 +1,83 @@
+<%- layout("/layouts/boilerplate.ejs") %>
+
+    <body>
+        <div class="container mb-5">
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-lg-6  ">
+                    <h1>Create new Listing</h1><br>
+                    <form method="post" action="/listings" class="needs-validation" enctype="multipart/form-data"
+                        novalidate>
+                        <div class="mb-3">
+                            <label for="title" class="form-label fw-medium">Title <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="Listing[title]" placeholder="Enter title"
+                                id="title" autocomplete="off" required>
+                            <div class="invalid-feedback">Enter Valid Title</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label fw-medium">Description<span
+                                    class="text-danger">*</span></label>
+                            <textarea class="form-control" name="Listing[description]" required
+                                placeholder="Enter description here...." rows="4" id="description"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="title" class="form-label fw-medium">Upload Image File<span
+                                    class="text-danger h5">*</span></label>
+                            <input type="file" class="form-control" name="Listing[image]" id="title" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5 mb-3">
+                                <label for="price" class="form-label fw-medium">Price<span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="Listing[price]"
+                                    placeholder="must be a number e.g 12500" id="price" autocomplete="off" required>
+                                <div class="invalid-feedback">Price must be number</div>
+                            </div>
+                            <div class="col-sm-7 mb-3">
+                                <label for="Category" class="form-label fw-medium">Category<span
+                                        class="text-danger">*</span></label><br>
+                                <select class="border rounded-1 ps-2 pe-3" name="Listing[category]" id="Category"
+                                    required>
+                                    <option selected disabled>Choose Category</option>
+                                    <option value="trending">Trending</option>
+                                    <option value="home">Home</option>
+                                    <option value="mountain">Mountain</option>
+                                    <option value="castle">Castle</option>
+                                    <option value="pool">Pools</option>
+                                    <option value="farm">Farming</option>
+                                    <option value="island">Islands</option>
+                                    <option value="cafe">Cafes</option>
+                                    <option value="camp">Camp</option>
+                                    <option value="beach">Beachs</option>
+                                </select>
+                                <div class="invalid-feedback">Choose valid Category</div>
+                                <!-- <input type="text" class="form-control" name="Listing[country]"
+                                    placeholder="Enter your Country" id="country" autocomplete="off" > -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5 mb-3">
+                                <label for="country" class="form-label fw-medium">Country<span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="Listing[country]"
+                                    placeholder="Enter your Country" id="country" autocomplete="off" required>
+                                <div class="invalid-feedback">Enter Valid Country</div>
+                            </div>
+                            <div class="col-sm-7 mb-3">
+                                <label for="location" class="form-label fw-medium">Location
+                                    <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="Listing[location]"
+                                    placeholder="Enter your Location" id="location" autocomplete="off" required>
+                                <div class="invalid-feedback">Enter Valid Location</div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-danger"> Add </button>
+                        <button type="reset" class="btn btn-primary"> Reset </button>
+                    </form>
+                </div>
+                <div class="col-3"></div>
+            </div>
+        </div>
+    </body>

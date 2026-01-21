@@ -1,0 +1,19 @@
+<% layout("./layouts/boilerplate") %>
+
+    <body>
+        <div class="container">
+            <div class="row"> 
+                <div class="col-lg-8">
+                    <img src="/assets/11104.jpg" alt="" style="width: 100%;"></div>
+                <div class="col-lg-4 text-center d-flex flex-column justify-content-center">
+                    <h1 class="text-danger fw-medium">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        <%= status%>
+                    </h1>
+                    <div class="alert alert-danger" role="alert">
+                        <%= message %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
