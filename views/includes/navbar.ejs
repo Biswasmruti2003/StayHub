@@ -1,11 +1,11 @@
-<nav class="navbar navbar-expand-md bg-body-white border-bottom p-2 mb-5 sticky-top">
-    <div class="container-fluid">
+<nav class="navbar navbar-expand-lg bg-body-light border-bottom sticky-top mb-4">
+    <div class="container-fluid ">
         <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i> StayHub</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarSupportedContent" aria-expanded="false" >
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
-            <div class="navbar-nav ms-auto">
+        <div class="collapse navbar-collapse pt-4 bg-body-light " id="navbarNavAltMarkup">
+            <div class="navbar-nav ms-auto mb-3">
                 <form action="/listings/search" method="post" class="d-flex" role="search">
                     <select class="form-select me-2 rounded-5" name="country" aria-label="Default select example"
                         id="search-country">
@@ -16,7 +16,7 @@
                     </select>
                     <input class="form-control me-2 rounded-5" type="search" name="location"
                         placeholder="Search Destination" aria-label="Search" id="search-bar" />
-                    <button class="btn btn-danger rounded-5 d-flex ps-3 pe-3" type="submit"><i
+                    <button class="btn btn-danger rounded-5 d-flex ps-3" type="submit"><i
                             class="bi bi-search me-2 "></i>Search</button>
                 </form>
             </div>
@@ -26,7 +26,8 @@
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWLxOUhQP5AB1r8naieABxkPwiIaEM9pJvjA&s"
                             alt="">
                         <div>
-                            <p> @<%= currUser.username %></p>
+                            <p> @<%= currUser.username %>
+                            </p>
                             <p><i class="fa-solid fa-pen-to-square"></i> Profile</p>
                         </div>
                     </a>
