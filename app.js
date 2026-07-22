@@ -1,13 +1,16 @@
 if (process.env.NODE_ENV != "production") {
     require("dotenv").config();
 }
+
+const dns = require("dns");
+dns.setDefaultResultOrder("ipv4first");
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const { log } = require("console");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
 const MongoStore = require("connect-mongo").default;
@@ -29,77 +32,77 @@ app.use(express.static("public"));
 
 app.engine("ejs", ejsMate);
 
-main()
-    .then(() => {
-        console.log("Connected Success");
-    })
-    .catch((err) => {
-        console.log(err);
-    })
-async function main() {
-    await mongoose.connect(process.env.MONGOATLAS_URL);
-}
-
-
-// Root-Path
-// app.get("/", (req, res) => {
-//     res.send("<h1> Well Come to  Airbnb</h1>");
-// });
-
-// Sessions
-const store = MongoStore.create({
-    mongoUrl: process.env.MONGOATLAS_URL,
-    crypto: {
-        secret: process.env.SESSION_SECRETE
-    },
-    touchAfter: 24 * 3600, // (in second)
-})
-store.on("error", (err) => {
-    console.log("Error in SESSION STORE", err);
-})
-const sessionOption = {
-    store,
-    secret: process.env.SESSION_SECRETE,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
-        maxAge: 7 * 24 * 60 * 60 * 1000,
+async function startServer() {
+    const mongoUrl = process.env.MONGOATLAS_URL;
+    if (!mongoUrl) {
+        console.error("MONGOATLAS_URL is not set in .env");
+        process.exit(1);
     }
+
+    try {
+        await mongoose.connect(mongoUrl, {
+            serverSelectionTimeoutMS: 10000,
+        });
+        console.log("Connected Success");
+    } catch (err) {
+        console.error("MongoDB connection failed:", err.message);
+        process.exit(1);
+    }
+
+    const store = MongoStore.create({
+        client: mongoose.connection.getClient(),
+        crypto: {
+            secret: process.env.SESSION_SECRETE
+        },
+        touchAfter: 24 * 3600,
+    });
+    store.on("error", (err) => {
+        console.log("Error in SESSION STORE", err);
+    });
+
+    const sessionOption = {
+        store,
+        secret: process.env.SESSION_SECRETE,
+        resave: false,
+        saveUninitialized: true,
+        cookie: {
+            expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+        }
+    };
+    app.use(session(sessionOption));
+    app.use(flash());
+
+    app.use(passport.initialize());
+    app.use(passport.session());
+
+    passport.use(new localStatergy(User.authenticate()));
+    passport.serializeUser(User.serializeUser());
+    passport.deserializeUser(User.deserializeUser());
+
+    app.use((req, res, next) => {
+        res.locals.successMsg = req.flash("success");
+        res.locals.errorMsg = req.flash("error");
+        res.locals.currUser = req.user;
+        next();
+    });
+
+    app.use("/listings", listingsRoute);
+    app.use("/listings/:id/reviews", reviewsRoute);
+    app.use("/", userRoute);
+
+    app.get("/*splat", (req, res, next) => {
+        next(new ExpressError(404, "Page Not Found"));
+    });
+
+    app.use((err, req, res, next) => {
+        let { status = 500, message = "something went wrong" } = err;
+        res.status(status).render("Error.ejs", { status, message });
+    });
+
+    app.listen(8080, () => {
+        console.log("Server Start at Port : 8080 ");
+    });
 }
-app.use(session(sessionOption));
-app.use(flash());
 
-// Passport
-app.use(passport.initialize());
-app.use(passport.session());
-
-passport.use(new localStatergy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-
-app.use((req, res, next) => {
-    res.locals.successMsg = req.flash("success");
-    res.locals.errorMsg = req.flash("error");
-    res.locals.currUser = req.user;
-    next();
-})
-// All Express Routes
-app.use("/listings", listingsRoute);
-app.use("/listings/:id/reviews", reviewsRoute);
-app.use("/", userRoute);
-
-// For all unmatched route
-app.get("/*splat", (req, res, next) => {
-    next(new ExpressError(404, "Page Not Found"));
-});
-
-// Error-Handling middleware
-app.use((err, req, res, next) => {
-    let { status = 500, message = "something went wrong" } = err;
-    res.status(status).render("Error.ejs", { status, message });
-})
-
-app.listen(8080, () => {
-    console.log("Server Start at Port : 8080 ");
-})
+startServer();
